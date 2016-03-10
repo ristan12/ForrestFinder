@@ -1,0 +1,23 @@
+TASK com.example.aleksandar.forrestfinder id=73
+  ACTIVITY com.example.aleksandar.forrestfinder/.MainActivity 536bdc68 pid=22335
+    Local FragmentActivity 53a62e48 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    FragmentManager misc state:
+      mActivity=com.example.aleksandar.forrestfinder.MainActivity@53a62e48
+      mContainer=android.support.v4.app.FragmentActivity$2@53a62f90
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{53a634fc V.E..... ... 0,0-800,480}
+        android.widget.LinearLayout{53a638b4 V.E..... ... 0,0-800,480}
+          android.view.ViewStub{53a63e08 G.E..... ... 0,0-0,0 #1020314}
+          android.widget.FrameLayout{53a63efc V.E..... ... 0,38-800,480}
+            android.support.v7.internal.widget.FitWindowsLinearLayout{53a6460c V.E..... ... 0,0-800,442 #7f0c003b app:id/action_bar_root}
+              android.support.v7.internal.widget.ViewStubCompat{53a647c0 G.E..... ... 0,0-0,0 #7f0c003c app:id/action_mode_bar_stub}
+              android.support.v7.internal.widget.ContentFrameLayout{53a649b0 V.E..... ... 0,0-800,442 #1020002 android:id/content}
+                android.widget.RelativeLayout{53a653d4 V.E..... ... 0,0-800,442}
+                  android.widget.ImageView{53a656ac V.ED.... ... 28,24-772,140 #7f0c002c app:id/title}
+                  android.support.v7.widget.AppCompatButton{53a65870 VFED..C. ... 39,185-384,275 #7f0c0067 app:id/levels_btn}
+                  android.support.v7.widget.AppCompatButton{53a65c14 VFED..C. ... 39,298-384,388 #7f0c0068 app:id/stats_btn}
+                  android.support.v7.widget.AppCompatButton{53a65f88 VFED..C. ... 416,185-761,275 #7f0c0069 app:id/options_btn}
+                  android.support.v7.widget.AppCompatButton{53a662f8 VFED..C. ... 416,298-761,388 #7f0c006a app:id/exit_btn}

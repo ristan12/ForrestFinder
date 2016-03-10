@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ForrestFinder</string>
+    <string name="level_background">levelBackground</string>
+</resources>

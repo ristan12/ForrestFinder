@@ -1,0 +1,95 @@
+Applications Graphics Acceleration Info:
+Uptime: 25941962 Realtime: 25941962
+
+** Graphics info for pid 29324 [com.example.aleksandar.forrestfinder] **
+
+Recent DisplayList operations
+        DrawDisplayList
+          DrawPatch
+          DrawPatch
+          Save
+          ClipRect
+          DrawDisplayList
+            DrawDisplayList
+              Save
+              ClipRect
+              Translate
+              DrawText
+              RestoreToCount
+          RestoreToCount
+  DrawDisplayList
+    DrawDisplayList
+      DrawDisplayList
+        DrawDisplayList
+          DrawPatch
+          Save
+          ClipRect
+          DrawDisplayList
+            DrawDisplayList
+              DrawPath
+              DrawPath
+              Save
+              ClipRect
+              DrawDisplayList
+                DrawBitmapRect
+              DrawDisplayList
+                Save
+                ClipRect
+                DrawText
+                DrawText
+                RestoreToCount
+              RestoreToCount
+          RestoreToCount
+        DrawDisplayList
+          DrawPatch
+          DrawPatch
+          Save
+          ClipRect
+          DrawDisplayList
+            DrawDisplayList
+              DrawPatch
+              Save
+              ClipRect
+              Translate
+              DrawText
+              RestoreToCount
+          RestoreToCount
+
+Caches:
+Current memory usage / total memory usage (bytes):
+  TextureCache         10110236 / 25165824
+  LayerCache                  0 / 16777216
+  GradientCache            4096 /   524288
+  PathCache              224708 /  4194304
+  CircleShapeCache            0 /  1048576
+  OvalShapeCache              0 /  1048576
+  RoundRectShapeCache     64730 /  1048576
+  RectShapeCache              0 /  1048576
+  ArcShapeCache               0 /  1048576
+  TextDropShadowCache     37718 /  2097152
+  FontRenderer 0              0 /        0
+  FontRenderer 1         262144 /   262144
+  FontRenderer 2         262144 /   262144
+Other:
+  FboCache                    0 /       16
+  PatchCache                  5 /      512
+Total memory usage:
+  10965776 bytes, 10.46 MB
+
+Profile data in ms:
+
+	com.example.aleksandar.forrestfinder/com.example.aleksandar.forrestfinder.LevelsActivity/android.view.ViewRootImpl@5355e548
+	com.example.aleksandar.forrestfinder/com.example.aleksandar.forrestfinder.GameLevelActivity/android.view.ViewRootImpl@539c7998
+View hierarchy:
+
+  com.example.aleksandar.forrestfinder/com.example.aleksandar.forrestfinder.LevelsActivity/android.view.ViewRootImpl@5355e548
+  32 views, 0.82 kB of display lists, 18 frames rendered
+
+  com.example.aleksandar.forrestfinder/com.example.aleksandar.forrestfinder.GameLevelActivity/android.view.ViewRootImpl@539c7998
+  9 views, 0.14 kB of display lists, 1 frames rendered
+
+
+Total ViewRootImpl: 2
+Total Views:        41
+Total DisplayList:  0.96 kB
+
