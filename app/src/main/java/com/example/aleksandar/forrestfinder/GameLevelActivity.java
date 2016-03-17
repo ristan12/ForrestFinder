@@ -5,12 +5,15 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
+import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
+import android.view.animation.Animation;
+import android.view.animation.ScaleAnimation;
 import android.widget.*;
 
 import org.w3c.dom.Text;
@@ -25,10 +28,9 @@ public class GameLevelActivity extends AppCompatActivity {
     long oldTime;
     long time;
     int wrongAns;
-
+    LevelData levelData;
     boolean isGameOn;
     GameData gameData = (GameData) getApplication();
-    //ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +48,12 @@ public class GameLevelActivity extends AppCompatActivity {
         }
 
         final GameData gameData = (GameData) getApplication();
-        final LevelData levelData = gameData.getDefaultLevelData().elementAt(indeks);
+        levelData = gameData.getDefaultLevelData().elementAt(indeks);
 
         ImageView pozadina = (ImageView) findViewById(R.id.pozadina);
         pozadina.setBackground(levelData.getBackgroundPic());
 
+        /*
         pozadina.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -72,7 +75,7 @@ public class GameLevelActivity extends AppCompatActivity {
             }
 
 
-        });
+        });*/
 
 
         isGameOn = false;
@@ -87,7 +90,7 @@ public class GameLevelActivity extends AppCompatActivity {
                         questionCounter = 0;
                         wrongAns = 0;
                         oldTime = SystemClock.elapsedRealtime();
-                        playLevel(levelData);
+                        playLevel();//levelData);
                     }
                 });
 
@@ -95,14 +98,11 @@ public class GameLevelActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void playLevel(final LevelData levelData){
+    private void playLevel(){//final LevelData levelData){
         isGameOn = true;
 
-        //Iterator<String> iter;
-        //for (iter = leveldata.getQuestions().iterator(); iter.hasNext(); ){
-        //for (int i = 0; i< leveldata.getQuestions().size(); i++){
         if (questionCounter < levelData.getQuestions().size()) {
-            dialogCreater(levelData.getQuestions().elementAt(questionCounter), levelData);
+            dialogCreater(levelData.getQuestions().elementAt(questionCounter));//, levelData);
             //questionCounter++;
         }
         else{
@@ -112,7 +112,7 @@ public class GameLevelActivity extends AppCompatActivity {
 
     }
 
-    private void dialogCreater(String tekst, final LevelData levelData){
+    private void dialogCreater(String tekst){//, final LevelData levelData){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -120,7 +120,7 @@ public class GameLevelActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (isGameOn) waitForAnswer(levelData);
+                        if (isGameOn) waitForAnswer();//levelData);
                         //dialog.dismiss();
                     }
                 });
@@ -156,43 +156,73 @@ public class GameLevelActivity extends AppCompatActivity {
 
     }
 
-    private void waitForAnswer(final LevelData levelData){
+    private void waitForAnswer(){//final LevelData levelData){
 
         ImageView pozadina = (ImageView) findViewById(R.id.pozadina);
         pozadina.setBackground(levelData.getBackgroundPic());
 
 
-        //sat.setBase(SystemClock.elapsedRealtime());
-        //sat.start();
-
         pozadina.setOnTouchListener(new View.OnTouchListener() {
-            @Override
+
+            int touchNum = 0;
             public boolean onTouch(View v, MotionEvent event) {
-                int a = 0;
-                int b = 0;
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    a = Math.round(event.getX() / gameData.getFactorX());
-                    b = Math.round(event.getY() / gameData.getFactorY());
+                if (touchNum == 0) {
+                    touchNum++;
+                    int a = 0;
+                    int b = 0;
+                    if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                        a = Math.round(event.getX() / gameData.getFactorX());
+                        b = Math.round(event.getY() / gameData.getFactorY());
 
-                    boolean check = checkAnswer(a, b, levelData);
-                    Toast toast;
+                        boolean check = checkAnswer(a, b);//, levelData);
+                        Toast toast;
 
-                    String coord = "Kordinate su X = " + a + " a Y = " + b;
+                        String coord = "Kordinate su X = " + a + " a Y = " + b;
 
-                    if (check) {
-                        toast = Toast.makeText(getApplicationContext(), "Success!!!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        questionCounter++;
-                        playLevel(levelData);
+                        final ImageView answerMark = (ImageView) findViewById(R.id.answerMark);
+                        Animation animation = new ScaleAnimation(0, 1, 0, 1);
+                        animation.setDuration(1000);
+                        animation.setAnimationListener(new Animation.AnimationListener() {
+                            @Override
+                            public void onAnimationStart(Animation animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animation animation) {
+                                answerMark.setImageResource(0);
+                                playLevel();
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animation animation) {
+
+                            }
+                        });
+
+                        if (check) {
+
+                            questionCounter++;
+
+                            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+                            player.start();
+
+                            answerMark.setImageResource(R.drawable.checkmark);
+                            answerMark.startAnimation(animation);
+
+
+                        } else {
+
+                            wrongAns++;
+
+                            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
+                            player.start();
+
+                            answerMark.setImageResource(R.drawable.xmark);
+                            answerMark.startAnimation(animation);
+
+                        }
                     }
-                    else {
-                        wrongAns++;
-                        toast = Toast.makeText(getApplicationContext(), "No Success!!!", Toast.LENGTH_SHORT);
-                        toast.show();
-                        playLevel(levelData);
-                    }
-                    //toast = Toast.makeText(getApplicationContext(), coord, Toast.LENGTH_SHORT);
-                    //toast.show();
                 }
                 return true;
             }
@@ -201,7 +231,7 @@ public class GameLevelActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkAnswer(int a, int b, LevelData levelData){
+    private boolean checkAnswer(int a, int b){//, LevelData levelData){
         ArrayList<Point> koordinate = levelData.getAnswerCoordinates().elementAt(questionCounter);
         Point upLeft = koordinate.get(0);
         Point upRight = koordinate.get(1);
@@ -214,3 +244,5 @@ public class GameLevelActivity extends AppCompatActivity {
         return false;
     }
 }
+
+
