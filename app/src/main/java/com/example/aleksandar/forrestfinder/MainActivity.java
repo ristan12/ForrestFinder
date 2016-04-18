@@ -45,10 +45,26 @@ public class MainActivity extends AppCompatActivity {
                 //System.exit(0);
             }
         });
+
+        Button statistics = (Button) findViewById(R.id.stats_btn);
+        statistics.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
     }
 
     private void fillGameData(GameData gameData) {
         gameData.setAddedLevelNumber(0);
+
+        //jebeno stvaramo neku statistiku jer se ocigledno sve sjebe
+        Vector<LevelStatistics> stats = new Vector<LevelStatistics>();
+        Drawable slika = getResources().getDrawable(R.drawable.savana_level_thumbnail);
+        LevelStatistics statistics = new LevelStatistics("Forrest!", 10, 120, slika);
+
 
         Vector<LevelData> def = new Vector<LevelData>();
 
@@ -67,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
         //setting default Levels
         gameData.setDefaultLevelData(def);
+        gameData.setLevelStatistics(stats);
     }
 
     private void fillLevelData(LevelData levelData, String backgroundPicName, String levelName, Drawable backgroundPic, Drawable thumbnail) {

@@ -20,6 +20,7 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Vector;
 
 public class GameLevelActivity extends AppCompatActivity {
 
@@ -154,6 +155,11 @@ public class GameLevelActivity extends AppCompatActivity {
         String tekst = "Kraj igre!\n" + "Vreme: " + Math.round(time/1000) + " sekundi\n" + "Netacni: "+ wrongAns;
         question.setText(tekst);
 
+        //popunjavanje statistike
+        LevelStatistics levelStatistics = new LevelStatistics(levelData.getLevelName(), wrongAns, Math.round(time/1000), levelData.getThumbnail());
+        gameData.getLevelStatistics().addElement(levelStatistics);
+        /////////
+
     }
 
     private void waitForAnswer(){//final LevelData levelData){
@@ -180,7 +186,7 @@ public class GameLevelActivity extends AppCompatActivity {
                         String coord = "Kordinate su X = " + a + " a Y = " + b;
 
                         final ImageView answerMark = (ImageView) findViewById(R.id.answerMark);
-                        Animation animation = new ScaleAnimation(0, 1, 0, 1);
+                        Animation animation = new ScaleAnimation(0, 1, 0, 1, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
                         animation.setDuration(1000);
                         animation.setAnimationListener(new Animation.AnimationListener() {
                             @Override

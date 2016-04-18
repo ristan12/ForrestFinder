@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">ForrestFinder</string>
     <string name="level_background">levelBackground</string>
+
+    <string name="title_activity_statistics">StatisticsActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>

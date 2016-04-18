@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_background_800_480"
+    tools:context="com.example.aleksandar.forrestfinder.StatisticsActivity">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="402dp"
+        android:id="@+id/stats_list"
+        android:layout_below="@+id/stats_back_button"
+        android:layout_alignParentBottom="true">
+    </ListView>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:text=""
+        android:background="@drawable/back_button"
+        android:id="@+id/stats_back_button"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Statistics"
+        android:id="@+id/stats_headline"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="10dp" />
+
+</RelativeLayout>

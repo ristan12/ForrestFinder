@@ -21,6 +21,7 @@ public class GameData extends Application{
     private static Vector<LevelStatistics> levelStatistics;
 
     public GameData(){
+        this.levelStatistics = new Vector<LevelStatistics>();
     }
 
     public static float getFactorX() {
