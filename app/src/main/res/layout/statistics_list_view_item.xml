@@ -2,15 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <Button
+        android:id="@+id/back_butt_history"
+
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_width="230dp"
+        android:layout_height="60dp"
+        android:background="@drawable/stats_background"
+        android:shadowColor="#00f2ff"
+        android:shadowDx="3"
+        android:shadowDy="0"
+        android:shadowRadius="11"
+
+        android:enabled="false"
+        android:visibility="visible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/levelThumb"
         android:background="@drawable/forrest_level_thumbnail"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_margin="5dp" />
+        android:layout_toRightOf="@+id/indeks"
+        android:layout_toEndOf="@+id/indeks"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -19,82 +41,69 @@
         android:text="Forrest"
         android:id="@+id/level_name"
         android:textStyle="bold"
-        android:textSize="30dp"
-        android:layout_alignParentTop="true"
+        android:textSize="20dp"
+        android:layout_alignTop="@+id/levelThumb"
         android:layout_toRightOf="@+id/levelThumb"
         android:layout_toEndOf="@+id/levelThumb"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginLeft="10dp" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/stopwatch_image"
         android:background="@drawable/stopwatch"
-        android:layout_alignTop="@+id/level_name"
-        android:layout_toEndOf="@+id/xmark_image"
-        android:layout_toRightOf="@+id/level_name" />
+        android:layout_alignTop="@+id/xmark_image"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@+id/xmark_image" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:id="@+id/checkmark_image"
-        android:background="@drawable/checkmark"
-        android:layout_alignLeft="@+id/level_name"
-        android:layout_alignStart="@+id/level_name"
-        android:layout_alignBottom="@+id/levelThumb" />
-
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:id="@+id/xmark_image"
         android:background="@drawable/xmark"
-        android:contentDescription=""
-        android:layout_toRightOf="@+id/level_name"
-        android:layout_toEndOf="@+id/level_name"
-        android:layout_alignTop="@+id/checkmark_image" />
+        android:layout_alignBottom="@+id/levelThumb"
+        android:layout_toRightOf="@+id/levelThumb"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/levelThumb" />
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="10"
-        android:id="@+id/correctAns"
-        android:layout_alignBottom="@+id/checkmark_image"
-        android:layout_toRightOf="@+id/checkmark_image"
-        android:layout_toEndOf="@+id/checkmark_image"
-        android:textSize="30sp"
-        android:textAlignment="textStart"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
-
-    <TextView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="5"
         android:id="@+id/wrongAns"
-        android:layout_alignBottom="@+id/xmark_image"
-        android:layout_alignLeft="@+id/stopwatch_image"
-        android:layout_alignStart="@+id/stopwatch_image"
-        android:textSize="30dp"
+        android:textSize="15dp"
         android:layout_marginLeft="5dp"
-        android:layout_toRightOf="@+id/xmark_image" />
+        android:layout_marginStart="5dp"
+        android:layout_alignBottom="@+id/xmark_image"
+        android:layout_toRightOf="@+id/xmark_image"
+        android:layout_toEndOf="@+id/xmark_image"
+        android:textColor="#000000" />
 
     <TextView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="1:40"
         android:id="@+id/timeText"
-        android:layout_alignBottom="@+id/stopwatch_image"
+        android:textSize="15dp"
+        android:layout_alignBottom="@+id/wrongAns"
         android:layout_toRightOf="@+id/stopwatch_image"
-        android:textSize="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textAlignment="textStart"
-        android:singleLine="false"
-        android:padding="3dp"
+        android:layout_alignTop="@+id/wrongAns"
+        android:layout_marginLeft="5dp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="1"
+        android:id="@+id/indeks"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
         android:layout_marginRight="10dp" />
+
+
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.aleksandar.forrestfinder;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,23 +30,14 @@ public class StatisticsListViewAdapter extends ArrayAdapter<LevelStatistics> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(R.layout.statistics_list_view_item, parent, false);
 
+        //indeks
+        TextView indeks = (TextView) rowView.findViewById(R.id.indeks);
+
         //level_name
         TextView levelName = (TextView) rowView.findViewById(R.id.level_name);
 
         //levelThumb
         ImageView levelThumb = (ImageView) rowView.findViewById(R.id.levelThumb);
-
-        //stopwach image
-        ImageView stopwatchImage = (ImageView) rowView.findViewById(R.id.stopwatch_image);
-
-        //checkmark image
-        ImageView checkmarkImage = (ImageView) rowView.findViewById(R.id.checkmark_image);
-
-        //xmark image
-        ImageView xmarkImage = (ImageView) rowView.findViewById(R.id.xmark_image);
-
-        //correct ans
-        TextView correctAns = (TextView) rowView.findViewById(R.id.correctAns);
 
         //wrong ans
         TextView wrongAns = (TextView) rowView.findViewById(R.id.wrongAns);
@@ -57,21 +49,24 @@ public class StatisticsListViewAdapter extends ArrayAdapter<LevelStatistics> {
         LevelStatistics levelStatistics = values.get(position);
 
         levelName.setText(levelStatistics.getLevelName());
-        //levelThumb.setImageDrawable(levelStatistics.getLevelThumbnail());
         levelThumb.setImageDrawable(levelStatistics.getLevelThumbnail());
-
-        stopwatchImage.setImageResource(R.drawable.stopwatch);
-        checkmarkImage.setImageResource(R.drawable.checkmark);
-        xmarkImage.setImageResource(R.drawable.xmark);
-
-
-        correctAns.setText("15");
 
         String tekst = "" + levelStatistics.getWrongAnswers();
         wrongAns.setText(tekst);
-        tekst = "" + levelStatistics.getTime();
+
+        int minutesTime = levelStatistics.getTime() / 60;
+        int secondsTime = levelStatistics.getTime() % 60;
+        if (secondsTime < 10)
+        {
+            tekst = "" + minutesTime + ":0" + secondsTime;
+        }
+            else
+        {
+            tekst = "" + minutesTime + ":" + secondsTime;
+        }
         timeText.setText(tekst);
 
+        indeks.setText("" + (position + 1) + ".");
         return rowView;
     }
 }

@@ -54,6 +54,7 @@ public class LevelData {
     private String levelBackgroundName;
     private Drawable backgroundPic;
     private Drawable thumbnail;
+    private int drawableId;
     private String levelName;
 
     public Drawable getThumbnail() {
@@ -112,5 +113,13 @@ public class LevelData {
 
     public void setLevelBackgroundName(String levelBackgroundName) {
         this.levelBackgroundName = levelBackgroundName;
+    }
+
+    public int getDrawableId() {
+        return drawableId;
+    }
+
+    public void setDrawableId(int drawableId) {
+        this.drawableId = drawableId;
     }
 }

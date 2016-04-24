@@ -37,11 +37,14 @@ public class StatisticsActivity extends AppCompatActivity {
 
         final ListView listView = (ListView) findViewById(R.id.stats_list);
         final ArrayList<LevelStatistics> list = new ArrayList<LevelStatistics>();
-        //popunjavamo list
 
-        for (int i = 0; i < 2 ; i++)
+        //popunjavamo list
+        int statsSize = gameData.getLevelStatistics().size();
+        int sizeForLoop = (statsSize > 10 ? 9 : statsSize - 1);
+
+        for (int i = sizeForLoop; i >= 0; i--)
         {
-            LevelStatistics statistics = new LevelStatistics("Forrest" + i, (int)(i+ Math.round(Math.random() * 4)), (int)(i * 5 + Math.round(Math.random() * 4)), getResources().getDrawable(R.drawable.savana_level_thumbnail));
+            LevelStatistics statistics = gameData.getLevelStatistics().elementAt(i);
             list.add(statistics);
         }
 

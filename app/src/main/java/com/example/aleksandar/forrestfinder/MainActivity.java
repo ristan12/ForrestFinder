@@ -11,8 +11,13 @@ import android.widget.Button;
 
 import org.xmlpull.v1.XmlPullParserException;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Vector;
 
 @TargetApi(21)
@@ -62,9 +67,40 @@ public class MainActivity extends AppCompatActivity {
 
         //jebeno stvaramo neku statistiku jer se ocigledno sve sjebe
         Vector<LevelStatistics> stats = new Vector<LevelStatistics>();
-        Drawable slika = getResources().getDrawable(R.drawable.savana_level_thumbnail);
-        LevelStatistics statistics = new LevelStatistics("Forrest!", 10, 120, slika);
+        LevelStatistics levelStatistics;
 
+        FileInputStream fi;
+        try {
+            fi = openFileInput("statisticsData.txt");
+
+            InputStreamReader isr = new InputStreamReader(fi);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(line);
+                line = new String(sb);
+                String[] split = line.split(" ");
+                String levelName = split[0];
+                int wrongAnswers = Integer.parseInt(split[1]);
+                int time = Integer.parseInt(split[2]);
+
+                String thumbnailName = split[3] + "_thumbnail";
+                int identifier = getApplication().getResources().getIdentifier(thumbnailName, "drawable", getPackageName());
+                Drawable levelThumbnail = getResources().getDrawable(identifier);
+
+                levelStatistics = new LevelStatistics(levelName, wrongAnswers, time, levelThumbnail);
+                stats.add(levelStatistics);
+                Log.d("mrdja", line);
+            }
+            fi.close();
+            gameData.setLevelStatistics(stats);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Vector<LevelData> def = new Vector<LevelData>();
 

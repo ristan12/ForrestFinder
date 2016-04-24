@@ -2,6 +2,7 @@ package com.example.aleksandar.forrestfinder;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Point;
@@ -18,6 +19,10 @@ import android.widget.*;
 
 import org.w3c.dom.Text;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
@@ -156,8 +161,31 @@ public class GameLevelActivity extends AppCompatActivity {
         question.setText(tekst);
 
         //popunjavanje statistike
-        LevelStatistics levelStatistics = new LevelStatistics(levelData.getLevelName(), wrongAns, Math.round(time/1000), levelData.getThumbnail());
-        gameData.getLevelStatistics().addElement(levelStatistics);
+        FileOutputStream fs;
+        StringBuilder sb = new StringBuilder();
+        try {
+            fs = openFileOutput("statisticsData.txt", Context.MODE_APPEND);
+
+            sb.append(levelData.getLevelName());
+            //fs.write(levelData.getLevelName().getBytes());
+            sb.append(" " + wrongAns);
+            //fs.write(("" + wrongAns).getBytes());
+            sb.append(" " + Math.round(time/1000));
+            //fs.write(("" + Math.round(time/100)).getBytes());
+            sb.append(" " + levelData.getLevelBackgroundName() + "\n");
+            //fs.write(("" + levelData.getThumbnail()).getBytes());
+            String line = new String(sb);
+            fs.write(line.getBytes());
+            fs.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        //LevelStatistics levelStatistics = new LevelStatistics(levelData.getLevelName(), wrongAns, Math.round(time/1000), levelData.getThumbnail());
+        //gameData.getLevelStatistics().addElement(levelStatistics);
         /////////
 
     }
