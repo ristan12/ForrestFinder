@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
     }
 
     private void fillGameData(GameData gameData) {
@@ -114,11 +116,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         fillGameStatistics();
-        Log.d("mainActivity resume", "USao u resume sad \n");
     }
 
     private void fillGameStatistics(){
-        //stvaramo neku statistiku jer se ocigledno sve sjebe
+
         Vector<LevelStatistics> stats = new Vector<LevelStatistics>();
         LevelStatistics levelStatistics;
 

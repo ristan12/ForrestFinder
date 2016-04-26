@@ -75,6 +75,7 @@ public class GameLevelActivity extends AppCompatActivity {
         pozadina.setBackground(levelData.getBackgroundPic());
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(10);
+        progressBar.setProgress(0);
         //progressBar.getIndeterminateDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
         //progressBar.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
         //progressBar.setProgressBackgroundTintList();
