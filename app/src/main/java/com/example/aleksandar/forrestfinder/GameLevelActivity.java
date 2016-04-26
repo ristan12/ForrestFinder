@@ -5,11 +5,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.*;
@@ -25,11 +28,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Vector;
+
 
 public class GameLevelActivity extends AppCompatActivity {
 
+    final static int numberOfQuestions = 10;
     static int questionCounter;
+    static int randomQuestion;
+
+    int last;
 
     long oldTime;
     long time;
@@ -38,13 +47,18 @@ public class GameLevelActivity extends AppCompatActivity {
     boolean isGameOn;
     GameData gameData = (GameData) getApplication();
 
+    ImageView pozadina;
+    ImageButton questionMark;
+    ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_level);
 
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
+        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
+
+        setContentView(R.layout.activity_game_level);
 
         int indeks = 0;
 
@@ -53,36 +67,17 @@ public class GameLevelActivity extends AppCompatActivity {
             indeks = extras.getInt("id");
         }
 
-        final GameData gameData = (GameData) getApplication();
         levelData = gameData.getDefaultLevelData().elementAt(indeks);
 
-        ImageView pozadina = (ImageView) findViewById(R.id.pozadina);
+        questionMark = (ImageButton) findViewById(R.id.questionmark);
+        //questionMark.setVisibility(View.INVISIBLE);
+        pozadina = (ImageView) findViewById(R.id.pozadina);
         pozadina.setBackground(levelData.getBackgroundPic());
-
-        /*
-        pozadina.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float a = 0;
-                float b = 0;
-                if (event.getAction()==MotionEvent.ACTION_DOWN){
-                    a = Math.round(event.getX()/gameData.getFactorX());
-                    b = Math.round(event.getY() / gameData.getFactorY());
-
-                    String coord = "Kordinate su X = " + a + " a Y = " + b + " factorX = " + gameData.getFactorX() + " factorY = " + gameData.getFactorY();
-                    Toast toast = Toast.makeText(getApplicationContext(), coord, Toast.LENGTH_SHORT);
-
-                    toast.show();
-                    Log.d("srdja", coord);
-                }
-
-
-                return true;
-            }
-
-
-        });*/
-
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setMax(10);
+        //progressBar.getIndeterminateDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
+        //progressBar.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
+        //progressBar.setProgressBackgroundTintList();
 
         isGameOn = false;
         //test dialog
@@ -90,7 +85,7 @@ public class GameLevelActivity extends AppCompatActivity {
 
         LayoutInflater inflater = getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_layout, null))
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Da!!!", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         questionCounter = 0;
@@ -104,36 +99,57 @@ public class GameLevelActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void playLevel(){//final LevelData levelData){
+    private void playLevel(){
         isGameOn = true;
 
-        if (questionCounter < levelData.getQuestions().size()) {
-            dialogCreater(levelData.getQuestions().elementAt(questionCounter));//, levelData);
+        if (questionCounter < numberOfQuestions){
+            //random question
+            Random rand = new Random();
+            randomQuestion = rand.nextInt(levelData.getQuestions().size());
+
+            while (randomQuestion == last)
+            {
+                rand = new Random();
+                randomQuestion = rand.nextInt(levelData.getQuestions().size());
+            }
+            last = randomQuestion;
+            dialogCreater(levelData.getQuestions().elementAt(randomQuestion));
             //questionCounter++;
         }
         else{
             time = SystemClock.elapsedRealtime() - oldTime;
             dialogLevelInfo();
         }
-
     }
 
-    private void dialogCreater(String tekst){//, final LevelData levelData){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    private void dialogCreater(final String tekst){//, final LevelData levelData){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyCustomTheme);
 
         LayoutInflater inflater = getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_layout, null))
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if (isGameOn) waitForAnswer();//levelData);
+                        if (isGameOn) {
+
+                            questionMark.setVisibility(View.VISIBLE);
+                            questionMark.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    dialogCreater(tekst);
+                                }
+                            });
+                            waitForAnswer();
+                        }
                         //dialog.dismiss();
                     }
                 });
 
-
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        questionMark.setOnClickListener(null);
         TextView question = (TextView) dialog.findViewById(R.id.dialog_question);
         question.setText(tekst);
     }
@@ -147,8 +163,8 @@ public class GameLevelActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         //if (isGameOn) waitForAnswer(leveldata);
-                        Intent intent = new Intent(getApplicationContext(), LevelsActivity.class);
-                        startActivity(intent);
+                        //Intent intent = new Intent(getApplicationContext(), LevelsActivity.class);
+                        //startActivity(intent);
                         finish();
                     }
                 });
@@ -177,17 +193,12 @@ public class GameLevelActivity extends AppCompatActivity {
             String line = new String(sb);
             fs.write(line.getBytes());
             fs.close();
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        //LevelStatistics levelStatistics = new LevelStatistics(levelData.getLevelName(), wrongAns, Math.round(time/1000), levelData.getThumbnail());
-        //gameData.getLevelStatistics().addElement(levelStatistics);
-        /////////
-
     }
 
     private void waitForAnswer(){//final LevelData levelData){
@@ -208,7 +219,7 @@ public class GameLevelActivity extends AppCompatActivity {
                         a = Math.round(event.getX() / gameData.getFactorX());
                         b = Math.round(event.getY() / gameData.getFactorY());
 
-                        boolean check = checkAnswer(a, b);//, levelData);
+                        final boolean check = checkAnswer(a, b);
                         Toast toast;
 
                         String coord = "Kordinate su X = " + a + " a Y = " + b;
@@ -224,6 +235,9 @@ public class GameLevelActivity extends AppCompatActivity {
 
                             @Override
                             public void onAnimationEnd(Animation animation) {
+                                if (check) {
+                                    progressBar.incrementProgressBy(1);
+                                }
                                 answerMark.setImageResource(0);
                                 playLevel();
                             }
@@ -265,8 +279,8 @@ public class GameLevelActivity extends AppCompatActivity {
 
     }
 
-    private boolean checkAnswer(int a, int b){//, LevelData levelData){
-        ArrayList<Point> koordinate = levelData.getAnswerCoordinates().elementAt(questionCounter);
+    private boolean checkAnswer(int a, int b){
+        ArrayList<Point> koordinate = levelData.getAnswerCoordinates().elementAt(randomQuestion);
         Point upLeft = koordinate.get(0);
         Point upRight = koordinate.get(1);
         Point downLeft = koordinate.get(2);

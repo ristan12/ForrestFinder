@@ -15,7 +15,7 @@
     <TextView android:id="@+id/dialog_question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Are you ready to play motherfucker?"
+        android:text="Da li si spreman?"
         android:textSize="20dp"
         android:textAlignment="center"
         android:textColor="#FFF"

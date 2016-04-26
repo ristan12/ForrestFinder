@@ -10,7 +10,7 @@
         android:layout_height="402dp"
         android:id="@+id/stats_list"
         android:layout_below="@+id/history"
-        android:layout_alignParentBottom="true">
+        android:layout_above="@+id/clear_button">
     </ListView>
 
     <ImageView
@@ -23,15 +23,13 @@
         android:layout_marginBottom="10dp" />
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:text=""
-        android:background="@drawable/back_button"
-        android:id="@+id/stats_back_button"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp" />
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="Clear"
+        android:background="@drawable/button_shape"
+        android:id="@+id/clear_button"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp" />
 
 </RelativeLayout>

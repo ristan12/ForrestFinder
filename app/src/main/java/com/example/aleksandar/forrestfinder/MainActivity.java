@@ -23,12 +23,13 @@ import java.util.Vector;
 @TargetApi(21)
 public class MainActivity extends AppCompatActivity {
 
+    GameData gameData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GameData gameData = new GameData();
+        gameData = new GameData();
         fillGameData(gameData);
         gameData.setFactor(getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getHeight());
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LevelsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
         });
@@ -65,7 +66,59 @@ public class MainActivity extends AppCompatActivity {
     private void fillGameData(GameData gameData) {
         gameData.setAddedLevelNumber(0);
 
-        //jebeno stvaramo neku statistiku jer se ocigledno sve sjebe
+        fillGameStatistics();
+
+        Vector<LevelData> def = new Vector<LevelData>();
+
+        InputStream is = this.getResources().openRawResource(R.raw.leveldata);
+        XMLParser parser = new XMLParser(is);
+        try {
+            parser.parseXML(def);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //getting drawables
+        completeLevelData(def);
+
+        //setting default Levels
+        gameData.setDefaultLevelData(def);
+
+    }
+
+    private void fillLevelData(LevelData levelData, String backgroundPicName, String levelName, Drawable backgroundPic, Drawable thumbnail) {
+        levelData.setLevelBackgroundName(backgroundPicName);
+        levelData.setLevelName(levelName);
+        levelData.setBackgroundPic(backgroundPic);
+        levelData.setThumbnail(thumbnail);
+    }
+
+    private void completeLevelData(Vector<LevelData> def){
+        for (int i = 0; i < def.size(); i++){
+            String backgroundName = def.get(i).getLevelBackgroundName();
+            String thumbnailName = backgroundName + "_thumbnail";
+
+            int identifier = getApplication().getResources().getIdentifier(backgroundName, "drawable", getPackageName());
+            Drawable background = getResources().getDrawable(identifier);
+
+            identifier = getApplication().getResources().getIdentifier(thumbnailName, "drawable", getPackageName());
+            Drawable thumbnail = getResources().getDrawable(identifier);
+
+            def.get(i).setBackgroundPic(background);
+            def.get(i).setThumbnail(thumbnail);
+        }
+    }
+
+    protected void onResume(){
+        super.onResume();
+        fillGameStatistics();
+        Log.d("mainActivity resume", "USao u resume sad \n");
+    }
+
+    private void fillGameStatistics(){
+        //stvaramo neku statistiku jer se ocigledno sve sjebe
         Vector<LevelStatistics> stats = new Vector<LevelStatistics>();
         LevelStatistics levelStatistics;
 
@@ -102,46 +155,5 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        Vector<LevelData> def = new Vector<LevelData>();
-
-        InputStream is = this.getResources().openRawResource(R.raw.leveldata);
-        XMLParser parser = new XMLParser(is);
-        try {
-            parser.parseXML(def);
-        } catch (XmlPullParserException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //getting drawables
-        completeLevelData(def);
-
-        //setting default Levels
-        gameData.setDefaultLevelData(def);
-        gameData.setLevelStatistics(stats);
-    }
-
-    private void fillLevelData(LevelData levelData, String backgroundPicName, String levelName, Drawable backgroundPic, Drawable thumbnail) {
-        levelData.setLevelBackgroundName(backgroundPicName);
-        levelData.setLevelName(levelName);
-        levelData.setBackgroundPic(backgroundPic);
-        levelData.setThumbnail(thumbnail);
-    }
-
-    private void completeLevelData(Vector<LevelData> def){
-        for (int i = 0; i < def.size(); i++){
-            String backgroundName = def.get(i).getLevelBackgroundName();
-            String thumbnailName = backgroundName + "_thumbnail";
-
-            int identifier = getApplication().getResources().getIdentifier(backgroundName, "drawable", getPackageName());
-            Drawable background = getResources().getDrawable(identifier);
-
-            identifier = getApplication().getResources().getIdentifier(thumbnailName, "drawable", getPackageName());
-            Drawable thumbnail = getResources().getDrawable(identifier);
-
-            def.get(i).setBackgroundPic(background);
-            def.get(i).setThumbnail(thumbnail);
-        }
     }
 }

@@ -22,16 +22,19 @@
         <activity
             android:name=".LevelsActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".MainActivity"></activity>
         <activity
             android:name=".GameLevelActivity"
             android:screenOrientation="landscape"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".LevelsActivity"></activity>
         <activity
             android:name=".StatisticsActivity"
             android:screenOrientation="portrait"
             android:label="@string/title_activity_statistics"
-            android:theme="@style/Theme.AppCompat.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>

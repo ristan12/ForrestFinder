@@ -5,37 +5,61 @@ import android.graphics.Picture;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
+
 public class LevelsActivity extends AppCompatActivity {
+
+    GameData gameData = (GameData) getApplication();
+    GridView gridView;
+    ArrayList<LevelData> list = new ArrayList<LevelData>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_levels);
 
-        Button back = (Button) findViewById(R.id.back_button);
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LevelsActivity.this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
-            }
-        });
+        gridView = (GridView) findViewById(R.id.levels_grid);
 
-        GameData gameData = (GameData) getApplication();
         fillTheTable(gameData);
     }
 
     private void fillTheTable(GameData gameData){
+
+        //////
+        int levelNumber = gameData.getDefaultLevelData().size();
+
+        Log.d("test level", "statsSize " + levelNumber + " sizeForLoop " + "\n");
+        for (int j = 0; j < levelNumber; j++)
+        {
+            LevelData levelData = gameData.getDefaultLevelData().elementAt(j);
+            list.add(levelData);
+        }
+
+        final LevelsGridViewAdapter adapter = new LevelsGridViewAdapter(this, list);
+        gridView.setAdapter(adapter);
+
+
+
+
+        /////////
+
+
+
+
+
+        /*
         Dugme button;
         TextView levelName;
         String buttonLevelName, textLevelName;
@@ -67,12 +91,12 @@ public class LevelsActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(getApplicationContext(), GameLevelActivity.class);
                         intent.putExtra("id", id);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
                     }
                 });
             }
-        }
+        }*/
 
     }
 }

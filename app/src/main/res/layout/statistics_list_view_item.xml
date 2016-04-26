@@ -60,7 +60,7 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:id="@+id/xmark_image"
-        android:background="@drawable/xmark"
+        android:background="@drawable/xmark_small"
         android:layout_alignBottom="@+id/levelThumb"
         android:layout_toRightOf="@+id/levelThumb"
         android:layout_marginLeft="10dp"

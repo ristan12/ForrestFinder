@@ -10,12 +10,34 @@
         android:layout_height="fill_parent"
         android:id="@+id/pozadina"
         android:adjustViewBounds="false"
-        android:contentDescription="@string/level_background" />
+        android:contentDescription="@string/level_background"
+        android:background="@drawable/forrest_1_800_480" />
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/answerMark"
         android:layout_gravity="center" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/questionmark"
+        android:layout_gravity="left|top"
+        android:background="@drawable/questionmark"
+        android:layout_margin="10dp" />
+
+    <ProgressBar
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="150dp"
+        android:layout_height="10dp"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="15dp"
+        android:progressBackgroundTint="#ffffff"
+        android:progressTint="#fc0000"
+        android:progressTintMode="src_in"
+        android:progressBackgroundTintMode="src_in"
+        android:progress="50" />
 
 </FrameLayout>

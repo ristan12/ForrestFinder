@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/back_butt_level"
+
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+
+        android:layout_width="115dp"
+        android:layout_height="190dp"
+        android:background="@drawable/levels_background_grid"
+        android:shadowColor="#00f2ff"
+        android:shadowDx="3"
+        android:shadowDy="0"
+        android:shadowRadius="11"
+
+        android:enabled="false"
+        android:visibility="visible"
+        android:layout_alignTop="@+id/level_thumb"
+        android:layout_alignBottom="@+id/level_thumb_name"
+        android:layout_marginTop="-10dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_centerHorizontal="true" />
+
+    <com.example.aleksandar.forrestfinder.Dugme
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/level_thumb"
+        android:background="@drawable/forrest_level_thumbnail"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Forrest"
+        android:id="@+id/level_thumb_name"
+        android:textAlignment="center"
+        android:textColor="#13004c"
+        android:layout_below="@+id/level_thumb"
+        android:layout_centerHorizontal="true" />
+
+
+</RelativeLayout>
