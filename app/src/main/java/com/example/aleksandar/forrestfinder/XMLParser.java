@@ -93,10 +93,10 @@ public class XMLParser {
                     //readData(parser, data);
                     readData(parser, backgroundName, levelName);
 
-                    Log.d("srdja", "Start tag inside if after parser.next is 100 " + parser.getName() + " a tekst je " + parser.getText());
+                    //Log.d("srdja", "Start tag inside if after parser.next is 100 " + parser.getName() + " a tekst je " + parser.getText());
 
                 }
-                Log.d("srdja", "Start tag " + parser.getName());
+                //Log.d("srdja", "Start tag " + parser.getName());
             }
             else if (event == XmlPullParser.END_TAG) {
 
@@ -162,39 +162,39 @@ public class XMLParser {
         {
             if (event == XmlPullParser.START_TAG && parser.getName().equals("question")){
                 parser.next();
-                Log.d("srdja", "11111111111111111111 ");
+                //Log.d("srdja", "11111111111111111111 ");
                 question = parser.getText();
             }
             else if(event == XmlPullParser.START_TAG && parser.getName().equals("topleft")) {
                 parser.next();
-                Log.d("srdja", "00000000000000000 ");
+                //Log.d("srdja", "00000000000000000 ");
                 topleft = toPoint(parser.getText());
             }
             else if(event == XmlPullParser.START_TAG && parser.getName().equals("topright")) {
                 parser.next();
-                Log.d("srdja", "22222222222222222 ");
+                //Log.d("srdja", "22222222222222222 ");
                 topright = toPoint(parser.getText());
             }
             else if (event == XmlPullParser.START_TAG && parser.getName().equals("botleft")) {
                 parser.next();
-                Log.d("srdja", "333333333333333333 ");
+                //Log.d("srdja", "333333333333333333 ");
                 botleft = toPoint(parser.getText());
             }
             else if(event == XmlPullParser.START_TAG && parser.getName().equals("botright")) {
                 parser.next();
-                Log.d("srdja", "44444444444444444444 ");
+                //Log.d("srdja", "44444444444444444444 ");
                 botright = toPoint(parser.getText());
                 //procitao je poslednji podatak za question i dodajemo ga u listu
                 entries.add(new Entry(question, topleft, topright, botleft, botright));
                 //sta smo dodali?
-                Log.d("srdja", " Svi podaci : " + question + " " + topleft.x + " " + topleft.y + " " +
-                        topright.x + " " + topright.y + " " +
-                        botleft.x + " " + botleft.y + " " +
-                        botright.x + " " + botright.y + " ");
+                //Log.d("srdja", " Svi podaci : " + question + " " + topleft.x + " " + topleft.y + " " +
+                        //topright.x + " " + topright.y + " " +
+                        //botleft.x + " " + botleft.y + " " +
+                        //botright.x + " " + botright.y + " ");
 
             }
             event = parser.next();
-            Log.d("srdja", "novi event = " + event + " novo name = " + parser.getName());
+            //Log.d("srdja", "novi event = " + event + " novo name = " + parser.getName());
         }
     }
 
@@ -212,17 +212,17 @@ public class XMLParser {
             //data.backgroundName = parser.getText();
             backgroundName.append(parser.getText());
             //Log.d("ime", "backgroundName is = " + data.backgroundName);
-            Log.d("srdja", "Start tag inside if after parser.next is 32 " + parser.getName() + " a tekst je " + parser.getText());
+            //Log.d("srdja", "Start tag inside if after parser.next is 32 " + parser.getName() + " a tekst je " + parser.getText());
             parser.next();  //skipping the <backgroundName> text
             parser.next();  //skipping the </backgroundName> tag
         }
-        Log.d("srdja", "Start tag inside if after parser.next is 33 " + parser.getName() + " a tekst je " + parser.getText());
+        //Log.d("srdja", "Start tag inside if after parser.next is 33 " + parser.getName() + " a tekst je " + parser.getText());
 
         event = parser.next();  //skippping the text between </backgroundName> and <levelName>
 
         //we are now on <levelData> tag
 
-        Log.d("srdja", "Start tag inside if after parser.next is 34 " + parser.getName() + " a tekst je " + parser.getText());
+        //Log.d("srdja", "Start tag inside if after parser.next is 34 " + parser.getName() + " a tekst je " + parser.getText());
 
 
         if (event == XmlPullParser.START_TAG && parser.getName().equals("levelName")){
@@ -230,7 +230,7 @@ public class XMLParser {
             //data.levelName = parser.getText();
             levelName.append(parser.getText());
             //Log.d("ime", "LevelName is = " + data.levelName);
-            Log.d("srdja", "Start tag inside if after parser.next is 35 " + parser.getName() + " a tekst je " + parser.getText());
+            //Log.d("srdja", "Start tag inside if after parser.next is 35 " + parser.getName() + " a tekst je " + parser.getText());
             parser.next();  //skipping the <levelName> text
             parser.next();  //skipping the </levelName> tag
         }

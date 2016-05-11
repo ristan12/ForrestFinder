@@ -1,6 +1,7 @@
 package com.example.aleksandar.forrestfinder;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -33,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
         fillGameData(gameData);
         gameData.setFactor(getWindowManager().getDefaultDisplay().getWidth(), getWindowManager().getDefaultDisplay().getHeight());
 
+        try {
+            FileOutputStream fos = openFileOutput("addedLevelData.txt", Context.MODE_APPEND);
+            fos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Button levels = (Button) findViewById(R.id.levels_btn);
         levels.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +70,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button options = (Button) findViewById(R.id.options_btn);
+        options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OptionsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -69,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         gameData.setAddedLevelNumber(0);
 
         fillGameStatistics();
-
+        fillAddedLevels();
         Vector<LevelData> def = new Vector<LevelData>();
 
         InputStream is = this.getResources().openRawResource(R.raw.leveldata);
@@ -84,10 +101,30 @@ public class MainActivity extends AppCompatActivity {
 
         //getting drawables
         completeLevelData(def);
-
         //setting default Levels
         gameData.setDefaultLevelData(def);
 
+
+        def = new Vector<LevelData>();
+        FileInputStream fis = null;
+        try {
+            fis = openFileInput("addedLevelData.txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        parser = new XMLParser(fis);
+        try {
+            parser.parseXML(def);
+        } catch (XmlPullParserException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //getting drawables
+        completeAddedLevelData(def);
+        //setting added levels
+        gameData.setAddedLevelData(def);
     }
 
     private void fillLevelData(LevelData levelData, String backgroundPicName, String levelName, Drawable backgroundPic, Drawable thumbnail) {
@@ -111,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
             def.get(i).setBackgroundPic(background);
             def.get(i).setThumbnail(thumbnail);
         }
+    }
+
+    private void completeAddedLevelData(Vector<LevelData> def)
+    {
+
     }
 
     protected void onResume(){
@@ -149,6 +191,41 @@ public class MainActivity extends AppCompatActivity {
             }
             fi.close();
             gameData.setLevelStatistics(stats);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void fillAddedLevels()
+    {
+        FileInputStream fi;
+        try {
+            fi = openFileInput("addedLevelData.txt");
+
+            InputStreamReader isr = new InputStreamReader(fi);
+            BufferedReader bufferedReader = new BufferedReader(isr);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                StringBuilder sb = new StringBuilder();
+                sb.append(line);
+                line = new String(sb);
+                /*
+                String[] split = line.split(" ");
+                String levelName = split[0];
+                int wrongAnswers = Integer.parseInt(split[1]);
+                int time = Integer.parseInt(split[2]);
+
+                String thumbnailName = split[3] + "_thumbnail";
+                int identifier = getApplication().getResources().getIdentifier(thumbnailName, "drawable", getPackageName());
+                Drawable levelThumbnail = getResources().getDrawable(identifier);
+                */
+                Log.d("novalin", line);
+            }
+            fi.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

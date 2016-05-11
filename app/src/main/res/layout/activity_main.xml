@@ -25,7 +25,7 @@
     <Button
         android:id="@+id/levels_btn"
 
-        android:text="Levels"
+        android:text="Play"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
 
@@ -46,7 +46,7 @@
     <Button
         android:id="@+id/stats_btn"
 
-        android:text="Statistics"
+        android:text="History"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
 

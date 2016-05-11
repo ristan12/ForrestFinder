@@ -54,10 +54,6 @@ public class GameLevelActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL, WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL);
-        //getWindow().setFlags(WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH, WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH);
-
         setContentView(R.layout.activity_game_level);
 
         int indeks = 0;
@@ -76,9 +72,6 @@ public class GameLevelActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         progressBar.setMax(10);
         progressBar.setProgress(0);
-        //progressBar.getIndeterminateDrawable().setColorFilter(Color.GREEN, android.graphics.PorterDuff.Mode.SRC_IN);
-        //progressBar.getProgressDrawable().setColorFilter(Color.RED, PorterDuff.Mode.SRC_IN);
-        //progressBar.setProgressBackgroundTintList();
 
         isGameOn = false;
         //test dialog
@@ -92,7 +85,7 @@ public class GameLevelActivity extends AppCompatActivity {
                         questionCounter = 0;
                         wrongAns = 0;
                         oldTime = SystemClock.elapsedRealtime();
-                        playLevel();//levelData);
+                        playLevel();
                     }
                 });
 
@@ -123,7 +116,7 @@ public class GameLevelActivity extends AppCompatActivity {
         }
     }
 
-    private void dialogCreater(final String tekst){//, final LevelData levelData){
+    private void dialogCreater(final String tekst){
         final AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyCustomTheme);
 
         LayoutInflater inflater = getLayoutInflater();
@@ -163,9 +156,6 @@ public class GameLevelActivity extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //if (isGameOn) waitForAnswer(leveldata);
-                        //Intent intent = new Intent(getApplicationContext(), LevelsActivity.class);
-                        //startActivity(intent);
                         finish();
                     }
                 });
@@ -202,7 +192,7 @@ public class GameLevelActivity extends AppCompatActivity {
         }
     }
 
-    private void waitForAnswer(){//final LevelData levelData){
+    private void waitForAnswer(){
 
         ImageView pozadina = (ImageView) findViewById(R.id.pozadina);
         pozadina.setBackground(levelData.getBackgroundPic());
