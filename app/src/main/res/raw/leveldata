@@ -2,37 +2,37 @@
 <main>
 	<level>
 	    <questions>
-            <question>Pronadji kravu</question>
+            <question>Find a cow</question>
                 <topleft>33 27</topleft>
                 <topright>52 27</topright>
                 <botleft>38 37</botleft>
                 <botright>52 37</botright>
-            <question>Pronadji slona</question>
+            <question>Find an elephant</question>
                 <topleft>0 24</topleft>
                 <topright>11 24</topright>
                 <botleft>0 33</botleft>
                 <botright>10 33</botright>
-            <question>Pronadji lisicu</question>
+            <question>Find a fox</question>
                 <topleft>90 33</topleft>
                 <topright>99 33</topright>
                 <botleft>89 39</botleft>
                 <botright>98 39</botright>
-			<question>Pronadji lane</question>
+			<question>Find a fawn</question>
 				<topleft>15 29</topleft>
                 <topright>25 28</topright>
                 <botleft>15 39</botleft>
                 <botright>23 39</botright>
-			<question>Pronadji zeku</question>
+			<question>Find a rabbit</question>
 				<topleft>41 40</topleft>
                 <topright>55 40</topright>
                 <botleft>41 51</botleft>
                 <botright>57 51</botright>
-			<question>Pronadji konja</question>
+			<question>Find a horse</question>
 				<topleft>65 27</topleft>
                 <topright>83 27</topright>
                 <botleft>66 39</botleft>
                 <botright>81 39</botright>
-			<question>Pronadji papagaja</question>
+			<question>Find a parrot</question>
 				<topleft>44 7</topleft>
                 <topright>67 8</topright>
                 <botleft>48 18</botleft>
@@ -45,27 +45,27 @@
     </level>
     <level>
         <questions>
-            <question>Pronadji nosoroga</question>
+            <question>Find a rhyno</question>
 				<topleft>0 33</topleft>
 				<topright>32 35</topright>
 				<botleft>0 49</botleft>
 				<botright>32 50</botright>
-			<question>Pronadji zebru</question>
+			<question>Find a zebra</question>
 				<topleft>91 32</topleft>
                 <topright>100 31</topright>
                 <botleft>91 38</botleft>
                 <botright>100 37</botright>
-			<question>Pronadji zirafu</question>
+			<question>Find a giraffe</question>
 				<topleft>6 19</topleft>
                 <topright>23 19</topright>
                 <botleft>6 32</botleft>
                 <botright>22 32</botright>
-			<question>Pronadji tigra</question>
+			<question>Find a tiger</question>
 				<topleft>39 31</topleft>
                 <topright>50 33</topright>
                 <botleft>39 37</botleft>
                 <botright>50 36</botright>
-			<question>Pronadji lava</question>
+			<question>Find a lion</question>
 				<topleft>67 36</topleft>
                 <topright>85 37</topright>
                 <botleft>67 49</botleft>
@@ -73,42 +73,42 @@
         </questions>
         <data>
             <backgroundName>savana_level</backgroundName>
-            <levelName>Savana</levelName>
+            <levelName>Savanna</levelName>
         </data>
     </level>
     <level>
         <questions>
-            <question>Pronadji patku</question>
+            <question>Find a duck</question>
 				<topleft>58 36</topleft>
 				<topright>68 38</topright>
 				<botleft>59 45</botleft>
 				<botright>70 46</botright>
-			<question>Pronadji medveda</question>
+			<question>Find a bear</question>
 				<topleft>43 19</topleft>
                 <topright>59 20</topright>
                 <botleft>44 28</botleft>
                 <botright>60 28</botright>
-			<question>Pronadji zeku</question>
+			<question>Find a rabbit</question>
 				<topleft>9 43</topleft>
                 <topright>21 42</topright>
                 <botleft>9 49</botleft>
                 <botright>21 49</botright>
-			<question>Pronadji jelena</question>
+			<question>Find a deer</question>
 				<topleft>3 15</topleft>
                 <topright>14 14</topright>
                 <botleft>3 23</botleft>
                 <botright>14 23</botright>
-			<question>Pronadji vuka</question>
+			<question>Find a wolf</question>
 				<topleft>73 23</topleft>
                 <topright>89 25</topright>
                 <botleft>75 37</botleft>
                 <botright>91 36</botright>
-			<question>Pronadji pingvina</question>
+			<question>Find a penguin</question>
 				<topleft>33 23</topleft>
                 <topright>43 24</topright>
                 <botleft>33 38</botleft>
                 <botright>43 38</botright>
-			<question>Pronadji goluba</question>
+			<question>Find a pigeon</question>
 				<topleft>20 12</topleft>
                 <topright>29 12</topright>
                 <botleft>21 20</botleft>

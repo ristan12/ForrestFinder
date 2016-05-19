@@ -41,6 +41,7 @@ public class LevelsGridViewAdapter extends ArrayAdapter<LevelData> {
 
         levelName.setText(levelData.getLevelName());
         levelThumb.setImageDrawable(levelData.getThumbnail());
+        levelThumb.setBackground(null);
         levelThumb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

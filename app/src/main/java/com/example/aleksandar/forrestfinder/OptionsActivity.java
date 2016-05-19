@@ -1,20 +1,27 @@
 package com.example.aleksandar.forrestfinder;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.DrawableContainer;
 import android.media.Image;
 import android.net.Uri;
+import android.os.SystemClock;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +36,8 @@ public class OptionsActivity extends AppCompatActivity {
     Button sound;
     Button language;
     ImageView slicica;
-    @Override
+    GameData gameData = (GameData)getApplication();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_options);
@@ -46,8 +54,37 @@ public class OptionsActivity extends AppCompatActivity {
             }
         });
 
+
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        final LayoutInflater inflater = getLayoutInflater();
+
         sound = (Button) findViewById(R.id.sound);
-        language = (Button) findViewById(R.id.language);
+        sound.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                builder.setView(inflater.inflate(R.layout.dialog_layout, null));
+                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        gameData.setSoundEnabled(false);
+                    }
+                });
+                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        gameData.setSoundEnabled(true);
+                    }
+                });
+
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+                TextView question = (TextView) dialog.findViewById(R.id.dialog_question);
+                question.setText("Enable sounds?");
+
+            }
+        });
+        //language = (Button) findViewById(R.id.language);
     }
 
     @Override
@@ -65,7 +102,7 @@ public class OptionsActivity extends AppCompatActivity {
                 //slicica.setImageBitmap(bitmap);
                 //save to disk
                 String name = saveToInternalStorage(bitmap);
-
+                Log.d("picpath", name);
                 Intent intent = new Intent(getApplicationContext(), AddNewLevelActivity.class);
                 intent.putExtra("imeSlike", name);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);// | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -37,6 +37,7 @@ public class GameLevelActivity extends AppCompatActivity {
     final static int numberOfQuestions = 10;
     static int questionCounter;
     static int randomQuestion;
+    static boolean soundEnabled;
 
     int last;
 
@@ -57,13 +58,20 @@ public class GameLevelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_level);
 
         int indeks = 0;
+        soundEnabled = gameData.getSoundEnabled();
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             indeks = extras.getInt("id");
         }
 
-        levelData = gameData.getDefaultLevelData().elementAt(indeks);
+        if (indeks < gameData.getDefaultLevelData().size()) {
+            levelData = gameData.getDefaultLevelData().elementAt(indeks);
+        }
+        else{
+            indeks -= gameData.getDefaultLevelData().size();
+            levelData = gameData.getAddedLevelData().elementAt(indeks);
+        }
 
         questionMark = (ImageButton) findViewById(R.id.questionmark);
         //questionMark.setVisibility(View.INVISIBLE);
@@ -75,11 +83,11 @@ public class GameLevelActivity extends AppCompatActivity {
 
         isGameOn = false;
         //test dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyCustomTheme);
 
         LayoutInflater inflater = getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_layout, null))
-                .setPositiveButton("Da!!!", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         questionCounter = 0;
@@ -149,7 +157,7 @@ public class GameLevelActivity extends AppCompatActivity {
     }
 
     private void dialogLevelInfo(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.MyCustomTheme);
 
         LayoutInflater inflater = getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_layout, null))
@@ -164,7 +172,7 @@ public class GameLevelActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
         TextView question = (TextView) dialog.findViewById(R.id.dialog_question);
-        String tekst = "Kraj igre!\n" + "Vreme: " + Math.round(time/1000) + " sekundi\n" + "Netacni: "+ wrongAns;
+        String tekst = "Vreme: " + Math.round(time/1000) + " sekundi\n" + "Netacni: "+ wrongAns;
         question.setText(tekst);
 
         //popunjavanje statistike
@@ -185,6 +193,7 @@ public class GameLevelActivity extends AppCompatActivity {
             fs.write(line.getBytes());
             fs.close();
 
+            gameData.shouldUpdateStatistics = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -243,8 +252,10 @@ public class GameLevelActivity extends AppCompatActivity {
 
                             questionCounter++;
 
-                            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.correct);
-                            player.start();
+                            if (soundEnabled) {
+                                MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.correct);
+                                player.start();
+                            }
 
                             answerMark.setImageResource(R.drawable.checkmark);
                             answerMark.startAnimation(animation);
@@ -254,8 +265,10 @@ public class GameLevelActivity extends AppCompatActivity {
 
                             wrongAns++;
 
-                            MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
-                            player.start();
+                            if (soundEnabled){
+                                MediaPlayer player = MediaPlayer.create(getApplicationContext(), R.raw.wrong);
+                                player.start();
+                            }
 
                             answerMark.setImageResource(R.drawable.xmark);
                             answerMark.startAnimation(animation);

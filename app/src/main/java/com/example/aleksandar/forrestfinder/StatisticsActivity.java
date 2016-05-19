@@ -29,6 +29,9 @@ public class StatisticsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics);
 
+
+        Log.d("dataflow", "In onCreate in StatisticsActivity:");
+
         listView = (ListView) findViewById(R.id.stats_list);
         gameData = (GameData) getApplication();
         Button clearButton = (Button) findViewById(R.id.clear_button);
@@ -59,10 +62,18 @@ public class StatisticsActivity extends AppCompatActivity {
         fillViewWithData(listView, list);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Log.d("dataflow", "In onResume in StatisticsActivity:");
+    }
+
     private void fillViewWithData(ListView listView, ArrayList<LevelStatistics> list){
         int statsSize = gameData.getLevelStatistics().size();
         int sizeForLoop = (statsSize > 10 ? 10 : statsSize);
 
+        Log.d("dataflow", "In fillViewWithData in StatisticsActivity:");
         Log.d("test fill", "statsSize " + statsSize + " sizeForLoop " + sizeForLoop + "\n");
         for (int j = 0; j < sizeForLoop; j++)
         {

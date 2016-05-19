@@ -14,8 +14,14 @@ public class GameData extends Application{
     private static float factorX;
     private static float factorY;
 
+    private static boolean soundEnabled = true;
+
     private static final int defaultLevelNumber = 3;
     private static int addedLevelNumber;
+
+    public static boolean shouldUpdateStatistics;
+    public static boolean shouldUpdateAddedLevels;
+
     private static Vector<LevelData> defaultLevelData;
     private static Vector<LevelData> addedLevelData;
     private static Vector<LevelStatistics> levelStatistics;
@@ -72,5 +78,13 @@ public class GameData extends Application{
 
     public static void setAddedLevelData(Vector<LevelData> addedLevelDatas) {
         GameData.addedLevelData = addedLevelDatas;
+    }
+
+    public static void setSoundEnabled(boolean enabled){
+        soundEnabled = enabled;
+    }
+
+    public static boolean getSoundEnabled(){
+        return soundEnabled;
     }
 }

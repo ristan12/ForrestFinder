@@ -35,6 +35,7 @@ public class AddNewLevelActivity extends AppCompatActivity {
     LevelData levelData;
     ImageView pozadina;
 
+    private int questionNumber;
     private Vector<String> questions;
     private Vector<ArrayList<Point>> answerCoordinates;
 
@@ -90,8 +91,8 @@ public class AddNewLevelActivity extends AppCompatActivity {
         TextView textView = (TextView) promptsView.findViewById(R.id.prompt_text);
         final EditText editText = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
 
-        textView.setText("Naslov nivoa:");
-
+        textView.setText("Input level title:");
+        questionNumber = 1;
         builder.setView(promptsView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -118,8 +119,8 @@ public class AddNewLevelActivity extends AppCompatActivity {
         TextView textView = (TextView) promptsView.findViewById(R.id.prompt_text);
         final EditText editText = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
 
-        textView.setText("Pitanje:");
-
+        textView.setText("Question "+ questionNumber +":");
+        questionNumber++;
         builder.setView(promptsView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -147,7 +148,7 @@ public class AddNewLevelActivity extends AppCompatActivity {
         EditText editText = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
 
         editText.setVisibility(View.GONE);
-        textView.setText("Klikni na koordinate zivotinja:");
+        textView.setText("Input coordinates:");
 
         builder.setView(promptsView)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -182,7 +183,7 @@ public class AddNewLevelActivity extends AppCompatActivity {
                         a = Math.round(event.getX() / gameData.getFactorX());
                         b = Math.round(event.getY() / gameData.getFactorY());
 
-                        Toast.makeText(getApplicationContext(), "Koordinate su " + a + " " + b, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), "Koordinate su " + a + " " + b, Toast.LENGTH_SHORT).show();
                         point = new Point(a, b);
                         Log.d("Coord", " Kords = " + a + " " + b);
                         niz.add(point);
@@ -212,16 +213,16 @@ public class AddNewLevelActivity extends AppCompatActivity {
         EditText editText = (EditText) promptsView.findViewById(R.id.editTextDialogUserInput);
 
         editText.setVisibility(View.GONE);
-        textView.setText("Jos pitanja?");
+        textView.setText("More questions?");
 
         builder.setView(promptsView)
-                .setPositiveButton("Da", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         setQuestions();
                     }
                 })
-                .setNegativeButton("Ne", new DialogInterface.OnClickListener() {
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         try {
@@ -286,6 +287,15 @@ public class AddNewLevelActivity extends AppCompatActivity {
             sb.append("</botright>\n");
         }
         sb.append("\t\t</questions>\n");
+
+        //<data>
+        sb.append("\t\t<data>\n");
+
+        sb.append("\t\t\t<backgroundName>" + levelData.getLevelBackgroundName() + "</backgroundName>\n");
+        sb.append("\t\t\t<levelName>" + levelData.getLevelName() + "</levelName>\n");
+
+        sb.append("\t\t</data>\n");
+        ////////
         sb.append("\t</level>\n");
         sb.append("</main>");
 
@@ -295,6 +305,7 @@ public class AddNewLevelActivity extends AppCompatActivity {
         Log.d("Linija je ", lines);
         Log.d("AAA", levelData.getLevelBackgroundName());
         Log.d("AAA", levelData.getLevelName());
+        gameData.shouldUpdateAddedLevels = true;
         finish();
     }
 }
