@@ -99,6 +99,8 @@ public class GameLevelActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
     }
 
     private void playLevel(){
@@ -172,7 +174,7 @@ public class GameLevelActivity extends AppCompatActivity {
         AlertDialog dialog = builder.create();
         dialog.show();
         TextView question = (TextView) dialog.findViewById(R.id.dialog_question);
-        String tekst = "Vreme: " + Math.round(time/1000) + " sekundi\n" + "Netacni: "+ wrongAns;
+        String tekst = "Time: " + Math.round(time/1000) + " seconds\n" + "Incorrect: "+ wrongAns;
         question.setText(tekst);
 
         //popunjavanje statistike

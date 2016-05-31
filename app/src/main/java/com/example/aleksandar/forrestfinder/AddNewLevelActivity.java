@@ -134,6 +134,8 @@ public class AddNewLevelActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
     }
 
@@ -163,6 +165,8 @@ public class AddNewLevelActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
     }
 
@@ -236,6 +240,8 @@ public class AddNewLevelActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
 
     }
 
